@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "Board.h"
 
+// 배열 (Array), 동적 배열(Vector), 연결 리스트(List)
+
 void Player::Init(Board* board)
 {
 	_pos = board->GetEnterPos();
