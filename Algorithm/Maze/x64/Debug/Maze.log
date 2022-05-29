@@ -1,3 +1,6 @@
-﻿  Player.cpp
-D:\DataStructure\Inflearn\DataStructureInflearn\Algorithm\Maze\Player.cpp(88,14): warning C4244: '+=': 'uint64'에서 'uint32'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  Board.cpp
+  Maze.cpp
+  Player.cpp
+D:\DataStructure\Inflearn\DataStructureInflearn\Algorithm\Maze\Player.cpp(20,14): warning C4244: '+=': 'uint64'에서 'uint32'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
   Maze.vcxproj -> D:\DataStructure\Inflearn\DataStructureInflearn\Algorithm\x64\Debug\Maze.exe
