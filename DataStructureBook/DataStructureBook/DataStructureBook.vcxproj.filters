@@ -15,8 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DataStructureBook.cpp">
+    <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="include\ArrayList.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Point.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="NameCard.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ArrayList.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Point.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NameCard.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

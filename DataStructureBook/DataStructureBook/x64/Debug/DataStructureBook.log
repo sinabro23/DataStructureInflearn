@@ -1,0 +1,91 @@
+﻿  ArrayList.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1788,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1788,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1964,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1964,1): error C2059: 구문 오류: ';'
+  Point.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1788,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1788,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1964,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1964,1): error C2059: 구문 오류: ';'
+  main.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1788,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1788,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1964,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1964,1): error C2059: 구문 오류: ';'
+  NameCard.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1788,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1788,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1964,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdio.h(1964,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(929,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(929,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(929,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(929,1): error C2059: 구문 오류: '형식'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(929,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(1017,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(1017,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(1017,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(1012,1): error C2371: '_Dest': 재정의. 기본 형식이 다릅니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(924): message : '_Dest' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(1012,1): error C2371: 'wchar_t': 재정의. 기본 형식이 다릅니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\include\vcruntime.h(228): message : 'wchar_t' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(1017,1): error C2143: 구문 오류: ';'이(가) 'const' 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\stdlib.h(1017,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(104,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(104,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(104,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(100,1): error C2370: 'wchar_t': 재정의. 스토리지 클래스가 다릅니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\include\vcruntime.h(228): message : 'wchar_t' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(104,1): error C2143: 구문 오류: ';'이(가) 'const' 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(104,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(123,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(123,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(123,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(119,1): error C2370: 'wchar_t': 재정의. 스토리지 클래스가 다릅니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\include\vcruntime.h(228): message : 'wchar_t' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(123,1): error C2143: 구문 오류: ';'이(가) 'const' 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(123,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(386,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(386,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(386,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(386,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(422,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(422,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(422,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(422,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(95,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(95,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(95,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(91,1): error C2371: '_Destination': 재정의. 기본 형식이 다릅니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(119): message : '_Destination' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(95,1): error C2059: 구문 오류: '형식'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(95,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(134,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(134,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(134,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(130,1): error C2371: '_Destination': 재정의. 기본 형식이 다릅니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(119): message : '_Destination' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(134,1): error C2059: 구문 오류: '형식'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(134,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(233,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(233,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(233,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(233,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(230,1): error C2371: '_String': 재정의. 기본 형식이 다릅니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(419): message : '_String' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(427,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(427,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(427,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(423,1): error C2371: '_Destination': 재정의. 기본 형식이 다릅니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(119): message : '_Destination' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(427,1): error C2059: 구문 오류: '형식'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(427,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(455,1): error C2146: 구문 오류: ')'이(가) '_CRT_SECURE_NO_WARNINGS' 식별자 앞에 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(455,1): error C2061: 구문 오류: 식별자 '_CRT_SECURE_NO_WARNINGS'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(455,1): error C2059: 구문 오류: ';'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(455,1): error C2059: 구문 오류: ')'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\string.h(452,1): error C2371: '_String': 재정의. 기본 형식이 다릅니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_wstring.h(419): message : '_String' 선언을 참조하십시오.
+D:\DataStructure\Inflearn\DataStructureInflearn\DataStructureBook\DataStructureBook\NameCard.c(10,8): warning C4013: 'strcpy'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+  코드를 생성하고 있습니다...
