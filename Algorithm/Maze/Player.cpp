@@ -58,25 +58,40 @@ void Player::Init(Board* board)
 		{
 			// 왼쪽 방향으로 90도 회전.
 			_dir = (_dir + 1) % DIR_COUNT;
-			/*
-			switch (_dir)
-			{
-			case DIR_UP:
-				_dir = DIR_LEFT;
-				break;
-			case DIR_LEFT:
-				_dir = DIR_DOWN;
-				break;
-			case DIR_DOWN:
-				_dir = DIR_RIGHT;
-				break;
-			case DIR_RIGHT:
-				_dir = DIR_UP;
-				break;
-			}
-			*/
+	
 		}
 	}
+	
+	// path 계산 끝나고 스택으로 돌아오는 경로 삭제
+	stack<Pos> s;
+
+	//_path.size() - 1 : 마지막은 도착지일테니깐
+	for (int i = 0; i < _path.size() - 1; i++)
+	{
+		// s.top() == _path[i + 1] : 내가 다음에 가야할 칸이 스택에 들어간 최상위 원소 : 이미 지나온 곳
+		if (s.empty() == false && s.top() == _path[i + 1])
+			s.pop();
+		else
+			s.push(_path[i]);
+	}
+
+	// 목적지 칸 스택에 넣기
+	if (_path.empty() == false)
+		s.push(_path.back());
+
+	// 목적지부터 돌아가는 길로 벡터에 들어감
+	vector<Pos> path;
+	while (s.empty() == false)
+	{
+		path.push_back(s.top());
+		s.pop();
+	}
+
+	// 다시 역순으로 
+	reverse(path.begin(), path.end());
+
+	_path = path;
+
 }
 
 void Player::Update(uint64 deltaTick)
