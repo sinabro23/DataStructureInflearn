@@ -16,7 +16,7 @@ vector<Vertex> vertices;
 vector<vector<int>> adjacent;
 
 // 방문한 정점인지 확인하기 위해
-vector<bool> visited;
+vector<bool> discovered;
 
 void CreateGraph()
 {
@@ -24,90 +24,80 @@ void CreateGraph()
 	adjacent = vector<vector<int>>(6);
 	
 	// 인접 리스트 버전
-	/*adjacent[0].push_back(1);
+	adjacent[0].push_back(1);
 	adjacent[0].push_back(3);
 	adjacent[1].push_back(0);
 	adjacent[1].push_back(2);
 	adjacent[1].push_back(3);
 	adjacent[3].push_back(4);
-	adjacent[5].push_back(4);*/
+	adjacent[5].push_back(4);
 
 	// 인접 행렬
-	adjacent = vector<vector<int>>
-	{
-		{0, 1, 0, 1, 0, 0},
-		{1, 0, 1, 1, 0, 0},
-		{0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 1, 0},
-		{0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 1, 0},
-	};
-}
-
-//DFS
-
-// here : 시작 위치
-// Dfs(0)
-// -Dfs(1)
-// --Dfs(2)
-// --Dfs(3)
-// ---Dfs(4)
-// 시작점과 연결 된 정점만 순회함.
-
-void Dfs(int here)
-{
-	// 방문 했는지 기록 해야함
-	visited[here] = true;
-	cout << "Visited : " << here << endl;
-
-	// 인접 리스트 버전
-	// 모든 인접 정점을 순회한다.
-	//for (int i = 0; i < adjacent[here].size(); i++)
+	//adjacent = vector<vector<int>>
 	//{
-	//	//there은 목적지
-	//	//ex) adjacent[0][0] -> 1 (1번 정점) // 0과 1은 연결
-	//	//ex) adjacent[0][1] -> 3 (3번 정점) // 0과 3은 연결
-	//	int there = adjacent[here][i];
-
-	//	// 방문한 적이 없는 정점이라면
-	//	if (visited[there] == false)
-	//		Dfs(there);
-	//}
-
-	// 인접 행렬 버전
-	// 모든 인접 정점을 순회한다.
-	for (int there = 0; there < 6; there++)
-	{
-		// 연결이 안됐다.
-		if (adjacent[here][there] == 0)
-			continue;
-
-		// 아직 방문하지 않은 곳 이 있으면 방문한다
-		if (visited[there] = false)
-			Dfs(there);
-	}
+	//	{0, 1, 0, 1, 0, 0},
+	//	{1, 0, 1, 1, 0, 0},
+	//	{0, 0, 0, 0, 0, 0},
+	//	{0, 0, 0, 0, 1, 0},
+	//	{0, 0, 0, 0, 0, 0},
+	//	{0, 0, 0, 0, 1, 0},
+	//};
 }
 
 
-// 연결 안된 정점도 순회하기 위한 함수
-void DfsAll()
+void Bfs(int here)
 {
-	visited = vector<bool>(6, false);
+	// 누구에 의해서 발견 되었는지?
+	vector<int> parent(6, -1); // -1로 초기화
+	// 시작점에서 얼마나 떨어져 있는지
+	vector<int> distance(6, -1); // -1로 초기화
 
-	for (int i = 0; i < vertices.size(); i++)
-		if (visited[i] == false)
-			Dfs(i);
+	queue<int> q;
+	q.push(here);
+	discovered[here] = true;
+
+	parent[here] = here; // 시작점은 자기 자신에 의해 발견됨
+	distance[here] = 0;
+
+	// 0 q[  ]
+	while (q.empty() == false)
+	{
+		here = q.front();
+		q.pop();
+
+		// 방문은 이 때 ( != 발견 )
+		cout << "Visited : " << here << endl;
+
+		// bfs는 발견만하고 방문은 안 할 수 있음.(DFS는 발견하면 방문하는 것이었음)
+		for (int there : adjacent[here])
+		{
+			// 이미 발견된 곳이라면
+			if (discovered[there])
+				continue;	
+
+			// 0 일때 1, 3 이 q에 예약이 들어감
+			q.push(there);
+			// 0 일때 1, 3 이 발견됨
+			discovered[there] = true;
+
+			parent[there] = here; // here라는 정점에 의해 there로 발견 됐다.
+			distance[there] = distance[here] + 1; // 시작점에서 here까지의 거리에 + 1만하면 there까지의 거리
+		}
+	}
+
+
+}
+
+void BfsAll()
+{
+	for (int i = 0; i < 6; i++)
+		if (discovered[i] == false)
+			Bfs(i);
 }
 
 int main()
 {
 	CreateGraph();
-
-	// 6개 모두 false로 초기화
-	//visited = vector<bool>(6, false);
-
-	// 시작위치를 정점 0으로부터 시작 탐색
-	//Dfs(0);
-
-	DfsAll();
+	discovered = vector<bool>(6, false);
+	Bfs(0);
 }
