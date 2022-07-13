@@ -131,6 +131,7 @@ void Player::Bfs()
 	// 목적지 도착하기 전에는 계속 실행
 	Pos dest = _board->GetExitPos();
 
+	// 방향(y, x)
 	Pos front[4] =
 	{
 		Pos { -1, 0},	// UP
@@ -145,6 +146,7 @@ void Player::Bfs()
 	
 	// vector<vector<Pos>> parent;
 	// Parent[A] = B; -> A는 B로 인해 발견함
+	// m[key] = value; // map<key,value>
 	map<Pos, Pos> parent;
 
 	// Pos(int y, int x)
