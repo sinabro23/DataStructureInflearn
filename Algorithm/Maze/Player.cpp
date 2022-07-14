@@ -123,6 +123,7 @@ void Player::RightHand()
 	_path = path;
 }
 
+
 // bfs로 모든 인접지역을 큐에 넣고(벽이 아니면 인접지역) 끝부터 시작점까지 부모를 역추적 하면 그게 최단거리 
 void Player::Bfs()
 {
@@ -207,3 +208,5 @@ void Player::Bfs()
 	// 제일 처음 위치도 벡터에 넣어두기
 	_path.push_back(pos);
 }
+
+
