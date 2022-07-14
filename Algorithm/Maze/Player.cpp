@@ -123,6 +123,7 @@ void Player::RightHand()
 	_path = path;
 }
 
+// bfs로 모든 인접지역을 큐에 넣고(벽이 아니면 인접지역) 끝부터 시작점까지 부모를 역추적 하면 그게 최단거리 
 void Player::Bfs()
 {
 	// 이동 하는 시뮬레이션 하기위한 임시 좌표
@@ -141,17 +142,17 @@ void Player::Bfs()
 	};
 
 	// 발견 했는 지 여부를 추적
-	const int32 size = _board->GetSize();
-	vector<vector<bool>> discovered(size, vector<bool>(size, false));
+	const int32 size = _board->GetSize(); // size 25 : 한줄에 25칸
+	vector<vector<bool>> discovered(size, vector<bool>(size, false)); //discovered[y][x];
 	
 	// vector<vector<Pos>> parent;
-	// Parent[A] = B; -> A는 B로 인해 발견함
+	// Parent[A] = B; -> A는 B로 인해 발견함/ B가 부모
 	// m[key] = value; // map<key,value>
 	map<Pos, Pos> parent;
 
 	// Pos(int y, int x)
 	queue<Pos> q;
-	q.push(pos);
+	q.push(pos); // 시작점 q에 넣기
 	discovered[pos.y][pos.x] = true;
 
 	// 시작점은 자기 자신이 부모
@@ -166,11 +167,11 @@ void Player::Bfs()
 		if (pos == dest) // 도착하면 끝
 			break;
 
-		for (int32 dir = 0; dir < 4; dir++)
+		for (int32 dir = 0; dir < 4; dir++) // pos에서 상하좌우로 이동가능한지 체크하고 큐에 넣기
 		{
 			// 다음좌표
 			Pos nextPos = pos + front[dir];
-			// 갈 수 있는 지역은 맞는지 확인.
+			// 갈 수 있는 지역은 맞는지 확인. 벽이면 false리턴
 			if (CanGo(nextPos) == false)
 				continue;
 
@@ -180,13 +181,13 @@ void Player::Bfs()
 
 			q.push(nextPos);
 			discovered[nextPos.y][nextPos.x] = true;
-			parent[nextPos] = pos;
+			parent[nextPos] = pos; // nextPos의 parent는 현재 pos
 		}
 	}
 
 	// TODO
 	// 두번 호출할까봐
-	_path.clear();
+	_path.clear(); // 실제로 이동할 경로를 넣어줄 vector
 
 	// 거꾸로 거슬러 올라간다
 	pos = dest;
@@ -194,14 +195,14 @@ void Player::Bfs()
 	{
 		_path.push_back(pos);
 
-		// 시작점은 자신이 곧 부모이다
+		// 시작점은 자신이 곧 부모이다/ pos가 시작점이면 break
 		if (pos == parent[pos])
 			break;
 
 		pos = parent[pos];
 	}
 
-	std::reverse(_path.begin(), _path.end());
+	std::reverse(_path.begin(), _path.end()); // 목적지로부터 거꾸로 거슬러 올라간 path vector 뒤집기
 
 	// 제일 처음 위치도 벡터에 넣어두기
 	_path.push_back(pos);
