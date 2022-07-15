@@ -5,106 +5,97 @@
 #include <queue>
 using namespace std;
 
-using NodeRef = shared_ptr<struct Node>;
-
-struct Node
+template<typename T, typename Container = vector<T>, typename Predicate = less<T>>
+class PriorityQueue
 {
-	Node() { }
-	Node(const string& data) : data(data) { }
-
-	string			data;
-	vector<NodeRef>	children; // Node*
-};
-
-NodeRef CreateTree()
-{
-	NodeRef root = make_shared<Node>("R1 개발실");
+public:
+	void push(const T& data)
 	{
+		// 우선 힙 구조부터 맞춰준다
+		_heap.push_back(data);
+
+		// 도장깨기 시작
+		int now = static_cast<int>(_heap.size()) - 1;
+		// 루트 노드까지
+		while (now > 0)
 		{
-			NodeRef node = make_shared<Node>("디자인팀");
-			root->children.push_back(node);
-			{
-				NodeRef leaf = make_shared<Node>("전투");
-				node->children.push_back(leaf);
-			}
-			{
-				NodeRef leaf = make_shared<Node>("경제");
-				node->children.push_back(leaf);
-			}
-			{
-				NodeRef leaf = make_shared<Node>("스토리");
-				node->children.push_back(leaf);
-			}
+			// 부모 노드와 비교해서 더 작으면 패배
+			int next = (now - 1) / 2;
+			if (_predicate(_heap[now], _heap[next]))
+				break;
+
+			// 데이터 교체
+			::swap(_heap[now], _heap[next]);
+			now = next;
 		}
-
-
-		{
-			NodeRef node = make_shared<Node>("프로그래밍팀");
-			root->children.push_back(node);
-			{
-				NodeRef leaf = make_shared<Node>("서버");
-				node->children.push_back(leaf);
-			}
-			{
-				NodeRef leaf = make_shared<Node>("클라");
-				node->children.push_back(leaf);
-			}
-			{
-				NodeRef leaf = make_shared<Node>("엔진");
-				node->children.push_back(leaf);
-			}
-		}
-
-		{
-			NodeRef node = make_shared<Node>("아트팀");
-			root->children.push_back(node);
-			{
-				NodeRef leaf = make_shared<Node>("배경");
-				node->children.push_back(leaf);
-			}
-			{
-				NodeRef leaf = make_shared<Node>("캐릭터");
-				node->children.push_back(leaf);
-			}
-		}
-
 	}
 
-	return root;
-}
+	void pop()
+	{
+		_heap[0] = _heap.back();
+		_heap.pop_back();
 
-void PrintTree(NodeRef root, int depth)
-{
-	for (int i = 0; i < depth; i++)
-		cout << "-";
+		int now = 0;
 
-	// 트리는 재귀와 어울림
-	cout << root->data << endl;
+		while (true)
+		{
+			int left = 2 * now + 1;
+			int right = 2 * now + 2;
 
-	for (NodeRef& child : root->children)
-		PrintTree(child, depth+1);
-}
+			// 리프에 도달한 경우
+			if (left >= (int)_heap.size())
+				break;
 
-// 깊이(depth) : 루트에서 어떤 노드에 도달하기위해 거쳐야 하는 간선의 수(aka 몇층)
-// 높이(height) : 가장 깊숙히 있는 노드의 깊이(max(depth))
-int GetHeight(NodeRef root)
-{
-	int height = 1;
+			int next = now;
 
-	for (NodeRef& child : root->children)
-		height = max(height, GetHeight(child) + 1);
+			// 왼쪽과 비교
+			if (_predicate(_heap[next], _heap[left]))
+				next = left;
 
-	return height;
-}
+			// 둘 중 승자를 오른쪽과 비교
+			if (right < (int)_heap.size() && _predicate(_heap[next], _heap[right]))
+				next = right;
 
+			// 왼쪽/오른쪽 둘 다 현재 값보다 작으면 종료
+			if (next == now)
+				break;
 
+			::swap(_heap[now], _heap[next]);
+			now = next;
+		}
+	}
+
+	T& top()
+	{
+		return _heap[0];
+	}
+
+	bool empty()
+	{
+		return _heap.empty();
+	}
+
+private:
+	Container _heap = {};
+	Predicate _predicate = {};
+};
 
 
 int main()
 {
-	NodeRef root = CreateTree();
-	PrintTree(root, 0);
+	PriorityQueue<int, vector<int>, greater<int>> pq;
 
-	int height = GetHeight(root);
-	cout << "Tree Height : " << height << endl;
+	pq.push(100);
+	pq.push(300);
+	pq.push(200);
+	pq.push(500);
+	pq.push(400);
+
+	while (pq.empty() == false)
+	{
+		int value = pq.top();
+		pq.pop();
+
+		cout << value << endl;
+	}
 }
