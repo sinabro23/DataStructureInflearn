@@ -5,96 +5,106 @@
 #include <queue>
 using namespace std;
 
-struct Vertex
-{
+using NodeRef = shared_ptr<struct Node>;
 
+struct Node
+{
+	Node() { }
+	Node(const string& data) : data(data) { }
+
+	string			data;
+	vector<NodeRef>	children; // Node*
 };
 
-vector<Vertex> vertices;
-vector<vector<int>> adjacent; // 인접 행렬
-
-void CreateGraph()
+NodeRef CreateTree()
 {
-	vertices.resize(6);
-	adjacent = vector<vector<int>>(6, vector<int>(6, -1)); // 2차원 배열
-
-	adjacent[0][1] = 15;
-	adjacent[0][3] = 35;
-	adjacent[1][0] = 35;
-	adjacent[1][2] = 5;
-	adjacent[1][3] = 10;
-	adjacent[3][4] = 5;
-	adjacent[5][4] = 5;
-}
-
-void Dijikstra(int here)
-{
-	// 가중치
-	struct VertexCost
+	NodeRef root = make_shared<Node>("R1 개발실");
 	{
-		int vertex;
-		int cost;
-	};
-
-	// queue로 하지 않은 이유는 코스트가 있기 때문에
-	list<VertexCost> discovered;
-	// 각 정점별로 지금까지 발견한 최단 거리
-	vector<int> best(6, INT32_MAX);
-	vector<int> parent(6, -1);
-
-	discovered.push_back(VertexCost({ here, 0 })); // here정점에 0대입 출발점이니깐
-	best[here] = 0; // 시작점이니깐 최단 거리 0
-	parent[here] = here;
-
-	while (discovered.empty() == false)
-	{
-		// 제일 좋은 후보를 찾는다
-		list<VertexCost>::iterator bestIt;
-		int bestCost = INT32_MAX;
-
-		// 순회
-		for (auto it = discovered.begin(); it != discovered.end(); ++it)
 		{
-			if (it->cost < bestCost) // 더 우월한 후보일 때
+			NodeRef node = make_shared<Node>("디자인팀");
+			root->children.push_back(node);
 			{
-				bestCost = it->cost;
-				bestIt = it;
+				NodeRef leaf = make_shared<Node>("전투");
+				node->children.push_back(leaf);
+			}
+			{
+				NodeRef leaf = make_shared<Node>("경제");
+				node->children.push_back(leaf);
+			}
+			{
+				NodeRef leaf = make_shared<Node>("스토리");
+				node->children.push_back(leaf);
 			}
 		}
 
-		// q에서 pop하던것
-		int cost = bestIt->cost;
-		here = bestIt->vertex;
-		discovered.erase(bestIt);
 
-		// 방문 ? 더 짧은 경로를 뒤늦게 찾았다면 스킵
-		if (best[here] < cost)
-			continue;
-
-		// 진짜 방문
-		for (int there = 0; there < 6; there++)
 		{
-			// 연결되지 않았으면 스킵.
-			if (adjacent[here][there] == -1)
-				continue;
-
-			// 더 좋은 경로를 과거에 찾았으면 스킵.
-			int nextCost = best[here] + adjacent[here][there];
-			if (nextCost >= best[there])
-				continue;
-
-			// ( 3, 35 ) ( 3, 25 )
-			discovered.push_back(VertexCost{ there, nextCost });
-			best[there] = nextCost;
-			parent[there] = here;
+			NodeRef node = make_shared<Node>("프로그래밍팀");
+			root->children.push_back(node);
+			{
+				NodeRef leaf = make_shared<Node>("서버");
+				node->children.push_back(leaf);
+			}
+			{
+				NodeRef leaf = make_shared<Node>("클라");
+				node->children.push_back(leaf);
+			}
+			{
+				NodeRef leaf = make_shared<Node>("엔진");
+				node->children.push_back(leaf);
+			}
 		}
+
+		{
+			NodeRef node = make_shared<Node>("아트팀");
+			root->children.push_back(node);
+			{
+				NodeRef leaf = make_shared<Node>("배경");
+				node->children.push_back(leaf);
+			}
+			{
+				NodeRef leaf = make_shared<Node>("캐릭터");
+				node->children.push_back(leaf);
+			}
+		}
+
 	}
 
-	int a = 3;
+	return root;
 }
+
+void PrintTree(NodeRef root, int depth)
+{
+	for (int i = 0; i < depth; i++)
+		cout << "-";
+
+	// 트리는 재귀와 어울림
+	cout << root->data << endl;
+
+	for (NodeRef& child : root->children)
+		PrintTree(child, depth+1);
+}
+
+// 깊이(depth) : 루트에서 어떤 노드에 도달하기위해 거쳐야 하는 간선의 수(aka 몇층)
+// 높이(height) : 가장 깊숙히 있는 노드의 깊이(max(depth))
+int GetHeight(NodeRef root)
+{
+	int height = 1;
+
+	for (NodeRef& child : root->children)
+		height = max(height, GetHeight(child) + 1);
+
+	return height;
+}
+
+
+
 
 int main()
 {
-	CreateGraph();
-	Dijikstra(0);
+	NodeRef root = CreateTree();
+	PrintTree(root, 0);
+
+	int height = GetHeight(root);
+	cout << "Tree Height : " << height << endl;
 }
