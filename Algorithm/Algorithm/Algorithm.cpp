@@ -6,101 +6,57 @@
 using namespace std;
 #include <thread>
 
-// 힙 정렬 (힙 : 최대 최소 뽑아내기 좋은 구조)
-void HeapSort(vector<int>& v)
+
+// Quick Sort 
+// pivot(기준점, 제일 첫데이터), low(pivot다음), high(제일끝)
+// 
+// 1단계)
+//	- pivot >= arr[low]일 동안 low를 오른쪽으로 이동
+//  - pivot <= arr[high]일 동안 high를 왼쪽으로 이동
+// 2단계)
+//	- low < high 라면, arr[low]와 arr[high] 데이터 교체
+// 3단계)
+//	- high<=low면 빠져나오고, pivot과 arr[high] 교체
+
+int Partition(vector<int>&v, int left, int right)
 {
-	priority_queue<int, vector<int>, greater<int>> pq;
-	
-	//O(NlogN)
-	for (int num : v)
-		pq.push(num);
+	int pivot = v[left];
+	int low = left + 1;
+	int high = right;
 
-	v.clear();
-
-	// 0(NlogN) => 2NlogN => O(NlogN)
-	while (pq.empty() == false)
+	// O(N)
+	while (low <= high)
 	{
-		v.push_back(pq.top());
-		pq.pop();
+		while (low <= right && pivot >= v[low])
+			low++;
+		while (high >= left + 1 && pivot <= v[high])
+			high--;
+
+		// 역전이 안됐으면 스왑
+		if (low < high)
+			swap(v[low], v[high]);
 	}
 
+	// 3단계
+	swap(v[left], v[high]);
+
+	// 스왑된 위치의 인덱스
+	return high;
 }
 
-
-// 병합 정렬
-// 분할 정복 ( Divide and Conquer )
-// - 분할 (Divide)		문제를 더 단순하게 분할한다
-// - 정복 (Conquer)		분할된 문제를 해결
-// - 결합 (Combine)		결과를 취합하여 마무리 
-
-// [3][K][7][2][J][4][8][9]			8개 * 1
-// [3][K][7][2] [J][4][8][9]		4개 * 2
-// [3][K] [7][2] [J][4] [8][9]		2개 * 4
-// [3] [K] [7] [2] [J] [4] [8] [9]	1개 * 8
-// [3][K] [2][7] [4][J] [8][9]		2개 * 4
-// [2][3][7][K] [4][8][9][J]		4개 * 2
-// [2][3][4][7][8][9][J][K]			8개 * 1
-
-// O(NlogN)
-void MergeResult(vector<int>& v, int left, int mid, int right)
+//  p  l                    h
+// [5][1][3][7][9][2][4][6][8]
+// O(N^2) 최악
+// O(NlogN) 평균
+void QuickSort(vector<int>& v, int left, int right)
 {
-	//  l       mid           r
-	// [2][3][7][K] [4][8][9][J]
-	int leftIdx = left;
-	int rightIdx = mid + 1;
-
-	// [2]
-	vector<int> temp;
-
-	while (leftIdx <= mid && rightIdx <= right)
-	{
-		if (v[leftIdx] <= v[rightIdx])
-		{
-			temp.push_back(v[leftIdx]);
-			leftIdx++;
-		}
-		else
-		{
-			temp.push_back(v[rightIdx]);
-			rightIdx++;
-		}
-	}
-
-	// 왼쪽이 먼저 끝났으면, 오른쪽 나머지 데이터 복사
-	if (leftIdx > mid)
-	{
-		while (rightIdx <= right)
-		{
-			temp.push_back(v[rightIdx]);
-			rightIdx++;
-		}
-	}
-	// 오른쪽이 먼저 끝났으면, 왼쪽 나머지 데이터 복사
-	else
-	{
-		while (leftIdx <= mid)
-		{
-			temp.push_back(v[leftIdx]);
-			leftIdx++;
-		}
-	}
-
-	for (int i = 0; i < temp.size(); i++)
-		v[left + i] = temp[i];
-}
-
-void MergeSort(vector<int>& v, int left, int right)
-{
-	if (left >= right) 
+	if (left > right)
 		return;
 
-	int mid = (left + right) / 2;
-	MergeSort(v, left, mid);
-	MergeSort(v, mid + 1, right);
-
-	MergeResult(v, left, mid, right);
+	int pivot = Partition(v, left, right);
+	QuickSort(v, left, pivot - 1); // 왼쪽
+	QuickSort(v, pivot + 1, right); // 오른쪽
 }
-
 
 int main()
 {
@@ -118,6 +74,7 @@ int main()
 	//SelectionSort(v);
 	//InsertionSort(v);
 	//HeapSort(v);
+	//MergeSort(v, 0, v.size() - 1);
 
-	MergeSort(v, 0, v.size() - 1);
+	QuickSort(v, 0, v.size() - 1);
 }
