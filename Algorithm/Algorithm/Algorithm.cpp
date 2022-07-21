@@ -5,76 +5,147 @@
 #include <queue>
 using namespace std;
 #include <thread>
+#include <map>
+// 오늘의 주제 : 해시 테이블
 
+// Q) map vs hash_map (C++11 표준 unordered_map)
 
-// Quick Sort 
-// pivot(기준점, 제일 첫데이터), low(pivot다음), high(제일끝)
+// map : Red-Black Tree // 균형 이진 트리
+// - 추가/탐색/삭제 0(logN)
+
+// C# dictionary != c++ map
+// C# dictionary != c++ unorderd_map(hash map)
+
+// hash_map (unodered_map) 
+// - 추가/탐색/삭제 0(1) 상수 
+
+// 살을 내주고 뼈를 취한다
+// 메모리를 내주고 속도를 취한다.
 // 
-// 1단계)
-//	- pivot >= arr[low]일 동안 low를 오른쪽으로 이동
-//  - pivot <= arr[high]일 동안 high를 왼쪽으로 이동
-// 2단계)
-//	- low < high 라면, arr[low]와 arr[high] 데이터 교체
-// 3단계)
-//	- high<=low면 빠져나오고, pivot과 arr[high] 교체
+// 아파트 우편함
+// [201][202][203][204][205]
+// [101][102][103][104][105]
 
-int Partition(vector<int>&v, int left, int right)
+// 키값 : 1~999 ex) user ID : 1~999
+// 
+// [1][2][3][][][][][][][][][][][999]
+
+// '해시' '테이블'
+// O(1)
+void TestTable() // 테이블의 의미
 {
-	int pivot = v[left];
-	int low = left + 1;
-	int high = right;
-
-	// O(N)
-	while (low <= high)
+	struct User
 	{
-		while (low <= right && pivot >= v[low])
-			low++;
-		while (high >= left + 1 && pivot <= v[high])
-			high--;
+		int userId = 0;
+		string userName;
+		// data
+	};
 
-		// 역전이 안됐으면 스왑
-		if (low < high)
-			swap(v[low], v[high]);
-	}
+	vector<User> users;
+	users.resize(1000);
+	
+	// 777번 유저 정보 세팅
+	users[777] = User{ 777, "Rookiss" };
 
-	// 3단계
-	swap(v[left], v[high]);
+	// 777번 유저 이름은?
+	string name = users[777].userName;
+	cout << name << endl;
 
-	// 스왑된 위치의 인덱스
-	return high;
+	// 테이블의 의미
+	// 키를 알면, 데이터를 단번에 찾을 수 있다. [1] [2] 통 하나
+
+	// 문제의상황
+	// 데이터 개수 int32_max개(3억~) 2147000000
+	// 살을 내주는 것도 정도껏 내줘야함
+	// -> 이문제를 해결 하기 위해 해시 기법
 }
 
-//  p  l                    h
-// [5][1][3][7][9][2][4][6][8]
-// O(N^2) 최악
-// O(NlogN) 평균
-void QuickSort(vector<int>& v, int left, int right)
-{
-	if (left > right)
-		return;
+// 보안
+// id : rookiss + pw : qwer1234 로 가입
+// id : rookiss + pw : hash(qwer1234) -> sdfasdf!@#!ASDFd3(해시값) 일방적임 해시값으로 비밀번호를 돌릴 수 없음
+// 
+// DB에 [rookiss][sdfasdf!@#!ASDFd3] 저장
+// 비밀번호 찾기 -> 아이디 입력 / 폰인증 -> 새 비밀번호 입력하세요 ( 해시값으로는 비밀번호를 알 수 없기 때문 )
 
-	int pivot = Partition(v, left, right);
-	QuickSort(v, left, pivot - 1); // 왼쪽
-	QuickSort(v, pivot + 1, right); // 오른쪽
+void TestHash()
+{
+	struct User
+	{
+		int userId = 0; // 1 ~ INT32_MAX
+		string userName;
+		// data
+	};
+
+	// [][][][][][][][]
+	vector<User> users;
+	users.resize(1000);
+
+	const int userId = 123456789;
+	int key = (userId % 1000); // hash < 고유번호 // hash함수 : % 1000
+
+	// 123456789번 유저 정보 세팅
+	users[key] = User{ userId, "Rookiss" };
+
+	// 123456789번 유저 이름은?
+	User& user = users[key];
+	if (user.userId == userId)
+	{
+		string name = user.userName;
+		cout << name << endl;
+	}
+	
+	// 문제점
+	// 충돌 문제(동일한 키값 겹침)
+	// 
+	// 1) 충돌이 발생한 자리를 대신해서 다른 빈자리를 찾아나서면 된다.
+	//		- 선형 조사법(linear probing)
+	//			hash(key) + 1 -> hash(key) + 2 // 데이터가 뭉쳐져 있을 가능성이 높음
+	//		- 이차 조사법(quadratic probing)
+	//			hash(key) + 1^2 -> hash(key) + 2^2  // 데이터 분산을 위해
+	
+	// 체이닝 : 겹치면 세로로 다음칸에 밀어넣는 방법
+	//       []
+	// [][][][][][][][]
+}
+
+void TestHashTableChaining()
+{
+	struct User
+	{
+		int userId = 0; // 1 ~ INT32_MAX
+		string userName;
+		// data
+	};
+
+	// 천개의 칸만 사용
+	// [][][][][][][][]
+	vector<vector<User>> users;
+	users.resize(1000);
+
+	const int userId = 123456789;
+	int key = (userId % 1000); // hash < 고유번호 // hash함수 : % 1000
+
+	// 123456789번 유저 정보 세팅
+	users[key].push_back(User{ userId, "Rookiss" });
+	users[789].push_back(User{ 789, "Faker" });
+
+	// 123456789번 유저 이름은 ? 
+	vector<User>& bucket = users[key];
+
+	for (User& user : bucket)
+	{
+		if(user.userId == userId)
+		{
+			string name = user.userName;
+			cout << name << endl;
+		}
+	}
 }
 
 int main()
 {
-	vector<int> v;
-
-	srand(time(0));
-
-	for (int i = 0; i < 50; i++)
-	{
-		int randValue = rand() % 100;
-		v.push_back(randValue);
-	}
-
-	//BubbleSort(v);
-	//SelectionSort(v);
-	//InsertionSort(v);
-	//HeapSort(v);
-	//MergeSort(v, 0, v.size() - 1);
-
-	QuickSort(v, 0, v.size() - 1);
+	//TestTable();
+	//TestHash();
+	TestHashTableChaining();
+	
 }
