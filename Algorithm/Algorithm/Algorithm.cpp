@@ -4,148 +4,116 @@
 #include <stack>
 #include <queue>
 using namespace std;
-#include <thread>
-#include <map>
-// 오늘의 주제 : 해시 테이블
 
-// Q) map vs hash_map (C++11 표준 unordered_map)
-
-// map : Red-Black Tree // 균형 이진 트리
-// - 추가/탐색/삭제 0(logN)
-
-// C# dictionary != c++ map
-// C# dictionary != c++ unorderd_map(hash map)
-
-// hash_map (unodered_map) 
-// - 추가/탐색/삭제 0(1) 상수 
-
-// 살을 내주고 뼈를 취한다
-// 메모리를 내주고 속도를 취한다.
-// 
-// 아파트 우편함
-// [201][202][203][204][205]
-// [101][102][103][104][105]
-
-// 키값 : 1~999 ex) user ID : 1~999
-// 
-// [1][2][3][][][][][][][][][][][999]
-
-// '해시' '테이블'
-// O(1)
-void TestTable() // 테이블의 의미
+// 정점 자체에 간선 정보 저장
+void CreateGraph_1()
 {
-	struct User
+	struct Vertex
 	{
-		int userId = 0;
-		string userName;
-		// data
+		vector<Vertex*> edges;
+		int data;
 	};
 
-	vector<User> users;
-	users.resize(1000);
-	
-	// 777번 유저 정보 세팅
-	users[777] = User{ 777, "Rookiss" };
+	vector<Vertex> v;
+	v.resize(6);
 
-	// 777번 유저 이름은?
-	string name = users[777].userName;
-	cout << name << endl;
+	v[0].edges.push_back(&v[1]);
+	v[0].edges.push_back(&v[3]);
+	v[1].edges.push_back(&v[0]);
+	v[1].edges.push_back(&v[2]);
+	v[1].edges.push_back(&v[3]);
+	v[3].edges.push_back(&v[4]);
+	v[5].edges.push_back(&v[4]);
 
-	// 테이블의 의미
-	// 키를 알면, 데이터를 단번에 찾을 수 있다. [1] [2] 통 하나
-
-	// 문제의상황
-	// 데이터 개수 int32_max개(3억~) 2147000000
-	// 살을 내주는 것도 정도껏 내줘야함
-	// -> 이문제를 해결 하기 위해 해시 기법
-}
-
-// 보안
-// id : rookiss + pw : qwer1234 로 가입
-// id : rookiss + pw : hash(qwer1234) -> sdfasdf!@#!ASDFd3(해시값) 일방적임 해시값으로 비밀번호를 돌릴 수 없음
-// 
-// DB에 [rookiss][sdfasdf!@#!ASDFd3] 저장
-// 비밀번호 찾기 -> 아이디 입력 / 폰인증 -> 새 비밀번호 입력하세요 ( 해시값으로는 비밀번호를 알 수 없기 때문 )
-
-void TestHash()
-{
-	struct User
+	// 0 번 -> 3번 정점이 연결?
+	bool connected = false;
+	for (Vertex* edge : v[0].edges)
 	{
-		int userId = 0; // 1 ~ INT32_MAX
-		string userName;
-		// data
-	};
-
-	// [][][][][][][][]
-	vector<User> users;
-	users.resize(1000);
-
-	const int userId = 123456789;
-	int key = (userId % 1000); // hash < 고유번호 // hash함수 : % 1000
-
-	// 123456789번 유저 정보 세팅
-	users[key] = User{ userId, "Rookiss" };
-
-	// 123456789번 유저 이름은?
-	User& user = users[key];
-	if (user.userId == userId)
-	{
-		string name = user.userName;
-		cout << name << endl;
-	}
-	
-	// 문제점
-	// 충돌 문제(동일한 키값 겹침)
-	// 
-	// 1) 충돌이 발생한 자리를 대신해서 다른 빈자리를 찾아나서면 된다.
-	//		- 선형 조사법(linear probing)
-	//			hash(key) + 1 -> hash(key) + 2 // 데이터가 뭉쳐져 있을 가능성이 높음
-	//		- 이차 조사법(quadratic probing)
-	//			hash(key) + 1^2 -> hash(key) + 2^2  // 데이터 분산을 위해
-	
-	// 체이닝 : 겹치면 세로로 다음칸에 밀어넣는 방법
-	//       []
-	// [][][][][][][][]
-}
-
-void TestHashTableChaining()
-{
-	struct User
-	{
-		int userId = 0; // 1 ~ INT32_MAX
-		string userName;
-		// data
-	};
-
-	// 천개의 칸만 사용
-	// [][][][][][][][]
-	vector<vector<User>> users;
-	users.resize(1000);
-
-	const int userId = 123456789;
-	int key = (userId % 1000); // hash < 고유번호 // hash함수 : % 1000
-
-	// 123456789번 유저 정보 세팅
-	users[key].push_back(User{ userId, "Rookiss" });
-	users[789].push_back(User{ 789, "Faker" });
-
-	// 123456789번 유저 이름은 ? 
-	vector<User>& bucket = users[key];
-
-	for (User& user : bucket)
-	{
-		if(user.userId == userId)
+		if (edge == &v[3])
 		{
-			string name = user.userName;
-			cout << name << endl;
+			connected = true;
+			break;
 		}
 	}
+}
+// 정점 간선 따로관리
+void CreateGraph_2()
+{
+	struct Vertex
+	{
+		int data;
+	};
+
+	vector<Vertex*> edges;
+
+	vector<Vertex> v;
+	v.resize(6);
+
+	// 연결된 목록을 따로 관리하자
+	vector<vector<int>> adjacent(6);
+	adjacent[0] = { 1, 3 };
+	adjacent[1] = { 0,2,3 };
+	adjacent[3] = { 4 };
+	adjacent[5] = { 4 };
+
+	// 0 번 -> 3번 정점이 연결?
+	bool connected = false;
+	//for (int vertex : adjacent[0])
+	//{
+	//	if (vertex == 3)
+	//	{
+	//		connected = true;
+	//		break;
+	//	}
+	//}
+
+	//STL
+	vector<int>& adj = adjacent[0];
+	connected = (std::find(adj.begin(), adj.end(), 3) != adj.end());
+	
+}
+// 순회없이 바로 접근 가능한 그래프
+void CreateGraph_3()
+{
+	struct Vertex
+	{
+		int data;
+	};
+
+	vector<Vertex> v;
+	v.resize(6);
+	
+
+	// 읽는 방법 : adjacent[from][to]
+	// 빠른접근 가능
+	vector<vector<bool>> adjacent(6, vector<bool>(6, false));
+	adjacent[0][1] = true;
+	adjacent[0][3] = true;
+	adjacent[1][0] = true;
+	adjacent[1][2] = true;
+	adjacent[1][3] = true;
+	adjacent[3][4] = true;
+	adjacent[5][4] = true;
+	
+	// 0->3 연결?
+	bool connected = adjacent[0][3];
+
+	vector<vector<int>> adjacent2 =
+	{
+		vector<int> { -1, 15, -1, 35, -1, -1 },
+		vector<int> { 15, -1, +5, 10, -1, -1 },
+		vector<int> { -1, -1, -1, -1, -1, -1 },
+		vector<int> { -1, -1, -1, -1, +5, -1 },
+		vector<int> { -1, -1, -1, -1, -1, -1 },
+		vector<int> { -1, -1, -1, -1, +5, -1 },
+	};
+
+
 }
 
 int main()
 {
-	//TestTable();
-	//TestHash();
-	TestHashTableChaining();
-	
+	CreateGraph_1();
+	CreateGraph_2();
+	return 0;
 }
